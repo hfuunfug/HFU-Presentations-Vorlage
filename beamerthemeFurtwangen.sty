@@ -1,0 +1,140 @@
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[none]{hyphenat}
+\usepackage{calc}
+\usepackage{totcount}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+
+\regtotcounter{section}
+
+\fontspec [ Path = fonts/, UprightFont = *.ttf ]{univers}
+
+\definecolor{FuwaGreen}{RGB}{0, 132, 77}
+\definecolor{FuwaLightgreen}{RGB}{0, 132, 77}
+\definecolor{FuwaLightgray}{RGB}{218, 220, 220}
+\definecolor{FuwaAnthrazit}{RGB}{112, 113, 115}
+\definecolor{FuwaBlack}{RGB}{0, 0, 0}
+\definecolor{FuwaWhite}{RGB}{255, 255, 255}
+
+\setmainfont{Univers LT W02 57 Condensed}
+\setsansfont{Arial}
+
+
+\setbeamercolor{itemize item}{fg=FuwaGreen}
+\setbeamercolor{enumerate item}{fg=FuwaGreen}
+\setbeamercolor{itemize subitem}{fg=FuwaLightgreen}
+\setbeamercolor{enumerate subitem}{fg=FuwaLightgreen}
+\setbeamercolor{itemize subsubitem}{fg=FuwaAnthrazit}
+\setbeamercolor{enumerate subsubitem}{fg=FuwaAnthrazit}
+\setbeamercolor{alerted text}{fg=FuwaAnthrazit}
+\setbeamercolor{section in toc}{fg=FuwaAnthrazit}
+
+\setbeamerfont{itemize/enumerate body}{size=\large}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{caption}{\tiny\insertcaption}
+\setbeamertemplate{caption label seperator}{}
+
+\setbeamertemplate{title page}{%
+    \begin{tikzpicture}
+        \useasboundingbox (1cm, 0.0cm) rectangle (\the\paperwidth, \the\paperheight);
+        \fill[color=FuwaGreen] (0,0) rectangle (12.8cm, 4.0cm);
+
+        \node at (6cm, 8cm) {\includegraphics[width=6cm]{hfu.eps}};
+        \node[anchor=south,text width=11.8cm,inner xsep=0.5cm] at (6.4cm,4cm)
+            {\color{FuwaGreen}\Huge\textbf{\inserttitle}};
+        \node[anchor=north east,text width=11.8cm,align=right] at (12.3cm,4cm)
+            {\color{FuwaWhite}\tiny\insertsubtitle};
+        \node at (6.4cm,2cm) {\color{FuwaWhite}\LARGE\insertauthor};
+
+        \node[anchor=north east] at(\the\paperwidth, \the\paperheight)
+            {\color{FuwaAnthrazit}\tiny\insertdate};
+    \end{tikzpicture}
+}
+
+\setbeamertemplate{section page}{%
+    \begin{tikzpicture}
+        \useasboundingbox (1cm, 0.0cm) rectangle (\the\paperwidth, \the\paperheight);
+        \fill[color=FuwaGreen] (0,0) rectangle (12.8cm, 4.0cm);
+
+        \node at (10cm, 8cm) {\includegraphics[width=4cm]{hfu.eps}};
+        \node[anchor=south,text width=11.8cm,inner xsep=0.5cm] at (8.4cm,4cm)
+            {\color{FuwaGreen}\Huge\textbf{\insertsection}};
+    \end{tikzpicture}
+}
+
+\setbeamertemplate{subsection page}{%
+    \begin{tikzpicture}
+        \useasboundingbox (1cm, 0.0cm) rectangle (\the\paperwidth, \the\paperheight);
+        \fill[color=FuwaGreen] (0, 3.85cm) rectangle (12.8cm, 4.0cm);
+
+        \node at (10cm, 8cm) {\includegraphics[width=4cm]{hfu.eps}};
+        \node[anchor=south,text width=11.8cm,inner xsep=0.5cm] at (8.4cm,4cm)
+            {\color{FuwaGreen}\Large\textbf{\insertsubsection}};
+    \end{tikzpicture}
+}
+
+
+
+\setbeamertemplate{frametitle}{%
+    \begin{tikzpicture}
+        % set up the entire slide as the canvas
+        \useasboundingbox (1cm, 0) rectangle (11.8cm, 1.25cm);
+        \fill[color=FuwaLightgreen] (0cm, 0.1cm) rectangle (12.8cm, 1.5cm);
+        \fill[color=FuwaLightgreen!75!FuwaBlack] (0, 0.1cm) rectangle (6.8cm, 1.5cm);
+        \fill[color=FuwaLightgreen!75!FuwaBlack] (6.8cm, 0.1cm) -- (8.8cm, 1.5cm) -- (6.8cm, 1.5cm);
+        \fill[color=FuwaLightgreen!75!FuwaBlack] (6.7cm, 0.1cm) parabola (8.7cm, 1.5cm);
+        %\fill[color=FuwaGreen] (0, 0.05cm) rectangle (12.8cm, 0.1cm);
+        \node[anchor=north,text width=11.8cm,inner xsep=0.5cm,inner ysep=0.25cm] at (6.4cm, 1.1cm)
+            {\color{FuwaWhite}\Large\textbf{\insertframetitle}};
+    \end{tikzpicture}
+}
+
+
+\makeatletter
+\newcount\progressbar@tmpcounta
+\newcount\progressbar@tmpcountb
+\newdimen\progressbar@progresswidth
+\newdimen\progressbar@tmpdim
+
+\progressbar@progresswidth=12.8cm
+
+
+\setbeamertemplate{background}{%
+    \progressbar@tmpcounta=\insertframenumber
+    \progressbar@tmpcountb=\inserttotalframenumber
+    \progressbar@tmpdim=\progressbar@progresswidth
+    \multiply\progressbar@tmpdim by \progressbar@tmpcounta
+    \divide\progressbar@tmpdim by \progressbar@tmpcountb
+
+    \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle (\the\paperwidth, \the\paperheight);
+        \fill[color=FuwaWhite] (0,0) rectangle (12.8cm, 9.6cm);
+
+        \ifnum\thepage=1\relax\else
+            \draw[fill=FuwaGreen,draw=none] (0cm, 0cm) rectangle (\progressbar@tmpdim,0.05cm);
+            \node[anchor=south] at(6.4cm, 0.1cm) {\color{FuwaAnthrazit}\tiny\insertdate};
+            \node[anchor=south east] at(12.8cm, 0.1cm) {\color{FuwaAnthrazit}\tiny\insertframenumber/%
+                \inserttotalframenumber};
+        \fi
+        %\foreach \x in {1,...,\progressbar@tmpcountb} {%
+        %    \progressbar@tmpdim=\progressbar@progresswidth
+        %    \divide\progressbar@tmpdim by \totvalue{section}
+        %    \draw[fill=FuwaGreen!50!FuwaBlack,draw=none] (\x*\progressbar@tmpdim, 0) rectangle (\x*\progressbar@tmpdim+0.05cm, 0.05cm);
+        %}
+   \end{tikzpicture}
+}
+
+\setbeamertemplate{logo}{%
+    \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle (\the\paperwidth, \the\paperheight);
+        \ifnum\thepage=1\relax\else
+            \node[anchor=south west] at (0.1cm, 0.1cm) {%
+                \includegraphics[width=2cm]{hfu.eps}};
+        \fi
+    \end{tikzpicture}
+}
