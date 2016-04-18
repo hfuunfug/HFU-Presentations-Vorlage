@@ -7,7 +7,7 @@ Vorlage zu erstellen.
 So benutzt man 's
 ----------------
 
-```
+```sh
 $ git clone https://github.com/TheNeikos/HFU-Presentations-Vorlage.git <name_der_presentation>
 $ cd <name_der_presentation>
 $ $EDITOR pres.md
