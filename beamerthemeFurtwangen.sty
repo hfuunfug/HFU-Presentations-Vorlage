@@ -117,7 +117,7 @@
 
         \ifnum\thepage=1\relax\else
             \draw[fill=FuwaGreen,draw=none] (0cm, 0cm) rectangle (\progressbar@tmpdim,0.05cm);
-            \node[anchor=south] at(6.4cm, 0.1cm) {\color{FuwaAnthrazit}\tiny\insertdate};
+            \node[anchor=south] at(6.4cm, 0.1cm) {\color{FuwaAnthrazit}\tiny\insertdate\ --\ \insertauthor};
             \node[anchor=south east] at(12.8cm, 0.1cm) {\color{FuwaAnthrazit}\tiny\insertframenumber/%
                 \inserttotalframenumber};
         \fi
